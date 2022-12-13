@@ -1,0 +1,75 @@
+﻿<Window x:Class="LAB33.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LAB33"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="62*" />
+            <RowDefinition Height="15*" />
+            <RowDefinition Height="8*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Row="0"  Width="795" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="0,0,0,43" Grid.RowSpan="2">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File" >
+                    <MenuItem Header="_New" Click="OnClickNew"/>
+                    <MenuItem Header="_Load" Click="OnLoadClick"/>
+                    <MenuItem Header="_Save" Click="OnSaveClick" />
+                    <Separator></Separator>
+                    <MenuItem Header="_Exit" Click="OnClickExit" />
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Header="_About" Click="OnAboutClick"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Label VerticalAlignment="Center">Number of elements:</Label>
+            <TextBox  x:Name="elementsNumber" Width="150" Margin="8" PreviewTextInput="NumberValidationTextBox"></TextBox>
+
+            <Label VerticalAlignment="Center">Range from:</Label>
+            <TextBox  x:Name="rangeFrom" Width="150" Margin="8" PreviewTextInput="NumberValidationTextBox"></TextBox>
+
+            <Label VerticalAlignment="Center">Range to:</Label>
+            <TextBox x:Name="rangeTo" Width="150" Margin="8" PreviewTextInput="NumberValidationTextBox"></TextBox>
+        </StackPanel>
+
+        <TextBox x:Name="contentText" Grid.Row="2" Grid.ColumnSpan="2" TextWrapping="Wrap" IsReadOnly="True" Margin="10"></TextBox>
+
+        <ProgressBar x:Name="progressBar" Grid.Row="3" Margin="10" Minimum="0" Maximum="100" Grid.Column="0"></ProgressBar>
+
+        <Button x:Name="startButton" Grid.Column="2" Grid.Row="3" Margin="0, 10, 10, 10" Content="Start" Click="startButton_Click">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text.Length, ElementName=elementsNumber, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Text.Length, ElementName=rangeFrom, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Text.Length, ElementName=rangeTo, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <StatusBar Grid.Row="4" Grid.ColumnSpan="2">
+            <TextBlock x:Name="statusText"/>
+        </StatusBar>
+    </Grid>
+</Window>
